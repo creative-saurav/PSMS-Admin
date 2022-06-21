@@ -1,16 +1,3 @@
-<?php 
-  require_once('config.php');
-  session_start();
-
-  if(!isset($_SESSION['admin_logedin'])){
-    header('location:login.php');
-  }
-  
-
-
-?>
-
-
 
 <?php require_once('header.php') ;?>
 
