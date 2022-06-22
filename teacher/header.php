@@ -1,11 +1,12 @@
 <?php 
  require_once('../config.php');
  session_start();
- 
 if(!isset($_SESSION['teacher_logedin'])){
   header('location:login.php');
+  
 }
-
+ $photo = teacher('photo',$_SESSION['teacher_logedin'][0]['id']);
+	echo $photo;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -43,7 +44,11 @@ if(!isset($_SESSION['teacher_logedin'])){
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
               <div class="nav-profile-img">
-                <img src="../images/faces/face1.jpg" alt="image">
+                <?php if($photo != null) :?>
+                  <img style="object-fit:cover; height:100%;width:100%;" src="<?php echo $photo;?>" alt="image">
+                <?php else :?>
+                 <img src="../images/faces/face1.jpg" alt="image">
+                 <?php endif;?>
                 <span class="availability-status online"></span>             
               </div>
               <div class="nav-profile-text">
@@ -51,6 +56,11 @@ if(!isset($_SESSION['teacher_logedin'])){
               </div>
             </a>
             <div class="dropdown-menu navbar-dropdown" aria-labelledby="profileDropdown">
+              <a class="dropdown-item" href="teacher-profile.php">
+                <i class="mdi mdi-lock mr-2 text-success"></i>
+                Profile
+              </a>
+              <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="change-password.php">
                 <i class="mdi mdi-lock mr-2 text-success"></i>
                 Change Password

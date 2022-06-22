@@ -45,6 +45,14 @@
         //     $results = $stm->fetchAll(PDO::FETCH_ASSOC);
         //     return $results[0][$col];
         // }
+        // //  teacher data update 
+        function teacher($col,$id){
+            global $pdo;
+            $stm=$pdo->prepare("SELECT $col FROM teacher WHERE id=?");
+            $stm->execute(array($id));
+            $results = $stm->fetchAll(PDO::FETCH_ASSOC);
+            return $results[0][$col];
+        }
 
 ?>
 
