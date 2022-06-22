@@ -29,6 +29,14 @@
         //     $count=$stm->rowCount();
         //     return $count;     
         //  } 
+        //  Teacher Add
+        function teacherCount($col,$val){
+            global $pdo;
+            $stm= $pdo->prepare("SELECT $col FROM teacher WHERE $col=? ");
+            $stm->execute(array($val));
+            $count=$stm->rowCount();
+            return $count;     
+         } 
         // //  Student Data Count 
         // function Student($col,$id){
         //     global $pdo;

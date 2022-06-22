@@ -1,8 +1,8 @@
 <?php 
- require_once('config.php');
+ require_once('../config.php');
  session_start();
 
-  if(isset($_POST['admin_login'])){
+  if(isset($_POST['teacher_login'])){
     $username = $_POST['username'];
     $password = $_POST['password'];
 
@@ -15,18 +15,18 @@
    }
    else{
       $password = SHA1($password);
-      $stm=$pdo->prepare("SELECT * FROM admin WHERE username=? AND password=?");
+      $stm=$pdo->prepare("SELECT id,mobile,name FROM teacher WHERE mobile=? AND password=?");
       $stm->execute(array($username,$password));
-      $adminCount= $stm->rowCount();
+      $teacherCount= $stm->rowCount();
 
-     if($adminCount ==1){
-        $adminData = $stm->fetchAll(PDO::FETCH_ASSOC);
-        $_SESSION['admin_logedin'] = $adminData;
+     if($teacherCount ==1){
+        $teacherData = $stm->fetchAll(PDO::FETCH_ASSOC);
+        $_SESSION['teacher_logedin'] = $teacherData;
         header('location:index.php');
 
      } 
      else{
-      $error = "username or Password is incorect!";
+      $error = "Mobile or Password is incorect!";
      }
 
     }
@@ -34,7 +34,7 @@
     
   }
 
- if(isset($_SESSION['admin_logedin'])){
+ if(isset($_SESSION['teacher_logedin'])){
   header('location:index.php');
 }
 
@@ -47,17 +47,17 @@
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Admin</title>
+  <title>Teacher Login</title>
   <!-- plugins:css -->
-  <link rel="stylesheet" href="vendors/iconfonts/mdi/css/materialdesignicons.min.css">
-  <link rel="stylesheet" href="vendors/css/vendor.bundle.base.css">
+  <link rel="stylesheet" href="../vendors/iconfonts/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../vendors/css/vendor.bundle.base.css">
   <!-- endinject -->
   <!-- plugin css for this page -->
   <!-- End plugin css for this page -->
   <!-- inject:css -->
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="../css/style.css">
   <!-- endinject -->
-  <link rel="shortcut icon" href="images/favicon.png" />
+  <link rel="shortcut icon" href="../images/favicon.png" />
 </head>
 
 <body>
@@ -68,7 +68,7 @@
           <div class="col-lg-4 mx-auto">
             <div class="auth-form-light text-left p-5">
              <div class="brand-logo">
-              <h3 class="text-center"><b>Admin</b></h3>
+              <h3 class="text-center"><b>Teacher Login</b></h3>
              </div>
               <?php if(isset ($error)) :?>
                 <div class="alert alert-danger">
@@ -77,13 +77,13 @@
                 <?php endif ;?>
               <form class="pt-3" method="POST" action="">
                 <div class="form-group" >
-                  <input type="text" class="form-control form-control-lg" name="username" placeholder="Username">
+                  <input type="text" class="form-control form-control-lg" name="username" placeholder="Teacher Mobile">
                 </div>
                 <div class="form-group">
                   <input type="password" class="form-control form-control-lg" name="password" placeholder="Password">
                 </div>
                 <div class="mt-3">
-                  <button type="submit" name="admin_login" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" >LOGIN</button>
+                  <button type="submit" name="teacher_login" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" >LOGIN</button>
                 </div>
               </form>
             </div>
@@ -96,12 +96,12 @@
   </div>
   <!-- container-scroller -->
   <!-- plugins:js -->
-  <script src="vendors/js/vendor.bundle.base.js"></script>
-  <script src="vendors/js/vendor.bundle.addons.js"></script>
+  <script src="../vendors/js/vendor.bundle.base.js"></script>
+  <script src="../vendors/js/vendor.bundle.addons.js"></script>
   <!-- endinject -->
   <!-- inject:js -->
-  <script src="js/off-canvas.js"></script>
-  <script src="js/misc.js"></script>
+  <script src="../js/off-canvas.js"></script>
+  <script src="../js/misc.js"></script>
   <!-- endinject -->
 </body>
 
