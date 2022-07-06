@@ -29,9 +29,7 @@
       $error = "username or Password is incorect!";
      }
 
-    }
-    
-    
+    } 
   }
 
  if(isset($_SESSION['admin_logedin'])){

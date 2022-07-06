@@ -71,13 +71,4 @@ $user_id = $_SESSION['teacher_logedin'][0]["id"];
         </div>
      </div>
  </div>
-
-
-
-
-
-
-
-
-
 <?php require_once('footer.php') ;?>

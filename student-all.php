@@ -1,9 +1,9 @@
 <?php require_once('header.php') ;
 
-  $stm = $pdo->prepare("SELECT * FROM teacher");
+  $stm = $pdo->prepare("SELECT * FROM students ORDER BY id DESC");
   $stm->execute();
   $i=1;
-  $teacherList=$stm->fetchAll(PDO::FETCH_ASSOC);
+  $studentList=$stm->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -13,7 +13,7 @@
     <span class="page-title-icon bg-gradient-primary text-white mr-2">
       <i class="mdi mdi-account-multiple-plus "></i>                 
     </span>
-    Teacher All
+    All Students
   </h3>
 </div>
    <div class="row">
@@ -28,24 +28,26 @@
                       <tr>
                         <th> # </th>
                         <th> Name </th>
-                        <th>Email </th>
+                        <th>Roll </th>
+                        <th>Class</th>
                         <th>Mobile</th>
                         <th>Gender</th>
                         <th>Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                        <?php foreach($teacherList as $teacher) :?>
+                        <?php foreach($studentList as $student) :?>
                        <tr>
                          <td><?php echo $i; $i++;?></td>
-                         <td><?php echo $teacher['name'] ;?></td>
-                         <td><?php echo $teacher['email'] ;?></td>
-                         <td><?php echo $teacher['mobile'] ;?></td>
-                         <td><?php echo $teacher['gender'] ;?></td>
+                         <td><?php echo $student['name'] ;?></td>
+                         <td><?php echo $student['roll'] ;?></td>
+                         <td><?php echo $student['current_class'] ;?></td>
+                         <td><?php echo $student['mobile'] ;?></td>
+                         <td><?php echo $student['gender'] ;?></td>
                          <td>
-                            <a href="teacher-edit.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
-                            <a href="teacher-details-veiw.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>&nbsp;
-                            <a onclick="return confirm('Are You Sure?')" href="teacher-delet.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-danger"><i class=" mdi mdi-delete  "></i></a>
+                            <a href="teacher-edit.php?id=<?php echo $student['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
+                            <a href="teacher-details-veiw.php?id=<?php echo $student['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>&nbsp;
+                            <a onclick="return confirm('Are You Sure?')" href="teacher-delet.php?id=<?php echo $student['id'] ;?>" class="btn btn-sm btn-danger"><i class=" mdi mdi-delete  "></i></a>
                         </td>
                        </tr> 
                        <?php endforeach ;?>

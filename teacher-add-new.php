@@ -9,8 +9,8 @@
     $t_password= $_POST['t_password'];
 
     // Count Email And Mobile
-    $countEmail = teacherCount('email',$t_email);
-    $countMobile = teacherCount('email',$t_mobile);
+    $countEmail = getCount('teacher','email',$t_email);
+    $countMobile = getCount('teacher','email',$t_mobile);
 
 
 

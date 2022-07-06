@@ -36,8 +36,8 @@
         $('#data_table_control').DataTable({
           dom: 'Bfrtip',
           // "searching": false,
-          info: false,
-          ordering: false,
+          // info: false,
+          // ordering: false,
 
    
         });
