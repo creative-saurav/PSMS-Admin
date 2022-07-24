@@ -47,8 +47,8 @@
                          }
                          ?></td>
                          <td>
-                            <a href="teacher-edit.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
-                            <a href="teacher-details-veiw.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>
+                            <a href="?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
+                            <a href="?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>
                         </td>
                        </tr> 
                        <?php endforeach ;?>
