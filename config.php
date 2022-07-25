@@ -56,6 +56,21 @@
             $results = $stm->fetchAll(PDO::FETCH_ASSOC);
             return $results[0]['name'] .'-'.$results[0]['code'];
         }
+
+        function getSubjectTeacher($id){
+            global $pdo;
+            $stm=$pdo->prepare("SELECT teacher_id FROM assign_teacher WHERE subject_id=?");
+            $stm->execute(array($id));
+            $results = $stm->fetchAll(PDO::FETCH_ASSOC);
+            return $results[0]['teacher_id'];
+        }
+        function getClassName($id,$col){
+            global $pdo;
+            $stm=$pdo->prepare("SELECT $col FROM class WHERE id=?");
+            $stm->execute(array($id));
+            $results = $stm->fetchAll(PDO::FETCH_ASSOC);
+            return $results[0][$col];
+        }
         // //  teacher data update 
         function teacher($col,$id){
             global $pdo;

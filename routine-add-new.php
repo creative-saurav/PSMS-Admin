@@ -1,39 +1,33 @@
 <?php require_once('header.php') ;
  
- if(isset($_POST['add_teacher_btn'])){
-    $sub_name= $_POST['sub_name'];
-    $sub_code= $_POST['sub_code'];
-    $sub_type= $_POST['sub_type'];
+ if(isset($_POST['create_btn'])){
+    $class_name= $_POST['class_name'];
+    $subject_name= $_POST['subject_name'];
+    $time_from= $_POST['time_from'];
+    $time_to= $_POST['time_to'];
+    $room_no= $_POST['room_no'];
+    $day= $_POST['day'];
+    //Get Teacher Name Selected Subject
+    $teacher_id = getSubjectTeacher($subject_name);
 
-    // Count Subject Code 
-    $codeCount = getCount('subjects','code',$sub_code);
-
-    if(empty($sub_name)){
+    if(empty($class_name)){
+        $error = "Class Name is Required!";
+    }
+    else if(empty($subject_name)){
         $error = "Subject Name is Required!";
     }
-    else if(empty($sub_code)){
-        $error = "Subject Code is Required!";
-    }
-    else if(empty($sub_type)){
-        $error = "Subject Type is Required!";
+    else if(empty($time_from)){
+        $error = "Subject From is Required!";
     }  
-    else if($codeCount != 0){
-        $error = "Subject Code Allready Used,Try Another Code!";
-    }
+    else if(empty($time_to)){
+        $error = "Subject To is Required!";
+    }  
     else{
-        $insert=$pdo->prepare("INSERT INTO subjects(name,code,type) VALUES (?,?,?)" );
-        $insert->execute(array(
-            $sub_name,
-            $sub_code,
-            $sub_type,
-        ));
-        $success = "Subject Create Succedssfully!";
-
+        $insert=$pdo->prepare("INSERT INTO class_routine(class_name,subject_id,teacher_id,time_from,time_to,room_no,day) VALUES (?,?,?,?,?,?,?)");
+        $insert->execute(array( $class_name,$subject_name,$teacher_id,$time_from,$time_to,$room_no,$day ));
+        $success = "Routine Create Successfully!";
     }
-
  }
-
-
 ?>
 
 
@@ -68,6 +62,7 @@
                  $lists=$stm->fetchAll(PDO::FETCH_ASSOC);
                 ?>
                 <select name="class_name" id="class_name" class="form-control">
+                    <option value="">Select Class</option>
                     <?php 
                      foreach($lists as $list):
                     ?>
@@ -78,6 +73,17 @@
             <div class="form-group">
                 <label for="subject_name">Select Subject:</label>
                 <select name="subject_name" id="subject_name" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label for="day">Select Day:</label>
+                <select name="day" id="day" class="form-control">
+                  <option value="Saturday">Saturday</option>      
+                  <option value="Sunday">Sunday</option>      
+                  <option value="Monday">Monday</option>      
+                  <option value="Wednesday">Wednesday</option>      
+                  <option value="Thursday">Thursday</option>      
+                  <option value="Friday">Friday</option>      
+                </select>
             </div>
             <div class="form-group">
                 <label for="time_from">Time From:</label><br>
@@ -91,7 +97,7 @@
                 <label for="room_no">Room No:</label><br>
                 <input type="text" name="room_no" id="room_no" class="form-control">
             </div>
-            <button type="submit" name="add_teacher_btn" class="btn btn-gradient-primary mr-2">Create Routine </button>
+            <button type="submit" name="create_btn" class="btn btn-gradient-primary mr-2">Create Routine </button>
             </form>
         </div>
         </div>
