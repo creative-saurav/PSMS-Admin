@@ -41,10 +41,6 @@
                     </thead>
                     <tbody>
                         <?php
-                        $stm = $pdo->prepare("SELECT DISTINCT class_name FROM class_routine");
-                        $stm->execute();
-                        
-                        $classList=$stm->fetchAll(PDO::FETCH_ASSOC);
                         $i=1;
                         foreach($routine_list as $list) :?>
                        <tr>
