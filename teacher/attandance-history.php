@@ -35,11 +35,11 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
     //     $error = "Attandance Date is Wrong!";
     // }
     else if( $attCount == 1 ){
-        $error = "Allready Submit The Attandace";
+        $error = "Attandace Not Fount";
     }
     else{
-        $stm = $pdo->prepare("SELECT  id ,name,roll FROM students WHERE current_class=?");
-        $stm ->execute(array($class_id));
+        $stm = $pdo->prepare("SELECT * FROM attendance WHERE class_id=? AND subject_id=? AND attendance_date=?");
+        $stm ->execute(array($class_id,$subject_id,$att_date));
         $studentCount = $stm->rowCount();
         $studentList = $stm->fetchAll(PDO::FETCH_ASSOC);
 
@@ -92,7 +92,7 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
     <span class="page-title-icon bg-gradient-primary text-white mr-2">
       <i class="mdi mdi-account"></i>                 
     </span>
-    New Attendance
+    Attendance History
   </h3>
 </div>
    <div class="row">
@@ -160,7 +160,7 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
                 </div>
                 <div class="col-md-3">
                     <div class="form-group">
-                      <button type="submit" name="submit_btn" class="btn btn-gradient-primary mr-2">Submit</button>
+                      <button type="submit" name="submit_btn" class="btn btn-gradient-primary mr-2">Search</button>
                     </div>
                 </div>
             </div>
@@ -171,59 +171,46 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
     </div>
 
   <?php if(isset($_POST['submit_btn']) AND $studentCount != NULL):?>
-  <?php if($studentCount>0):?>
 
     <div class="col-md-12 grid-margin stretch-card">
             <div class="card">
-                <form action="" method="POST">
                 <table class="table table-borderd">
                     <thead>
                         <tr>
                             <th>#</th>
                             <th>Student Name:</th>
-                            <th>Student Roll:</th>
                             <th>Absent</th>
                             <th>Present</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                         $i=1; 
-                         $a=0; 
-                         foreach($studentList as $newList):
+                        $i=1; 
+                        
+                            $stList = $studentList[0]['student_data'];
+                            $stList = json_decode($stList , true);
+                            foreach($stList as $newList):
                         ?>
                         <tr>
                             <td><?php echo $i;?></td>
                             <td><?php echo $newList['name'] ;?></td>
-                            <td><?php echo $newList['roll'] ;?></td>
-                            <input type="hidden" value="<?php echo $newList['id'] ;?>" name="student_id[]">
-                            <input type="hidden" value="<?php echo $newList['name'] ;?>" name="student_name[]">
-
-                            <input type="hidden" value="<?php echo $_POST['select_class'] ;?>" name="class_id">
-                            <input type="hidden" value="<?php echo $_POST['select_subject'] ;?>" name="subject_id">
-                            <input type="hidden" value="<?php echo $_POST['att_date'] ;?>" name="attandence_date">
-
-
-                            <td><label for="absent-<?php echo $i; ?>"><input type="radio" name="status[<?php echo $a;?>]" value="0" id="absent-<?php echo $i; ?>" checked>Absent</label></td>
-                            <td><label for="present-<?php echo $i;?>"><input type="radio" name="status[<?php echo $a;?>]" value="1" id="present-<?php echo $i;?>" >Present</label></td>
+                            <td><?php
+                            if($newList['status'] == 0){
+                                echo'<i class="mdi mdi-window-close"></i>';
+                            }
+                           ?></td>   
+                            <td><?php  if($newList['status'] == 1){
+                                echo'<i class="mdi mdi-check"></i>';
+                            }
+                            else{
+                                echo'<i class="mdi mdi-window-close"></i>';
+                            }?></td>   
                         </tr>
-                        <?php $i++;$a++;  endforeach; ?>
+                        <?php $i++;  endforeach; ?>
                     </tbody>
                 </table>
-                <br>
-                <br>
-                <div class="form-group">
-                    <input type="submit" name="attendance_submit" class="btn btn-success btn-sm" value="Attendance Submit">
-                </div>
-             </form>
             </div> 
         </div> 
-        
-        <?php else:?>
-            <div class="col-md-12 grid-margin stretch-card">
-                <div class="alert alert-danger">No Studdent Found!</div>
-            </div>
-        <?php endif;?>
         <?php endif;?>
 
      </div>  

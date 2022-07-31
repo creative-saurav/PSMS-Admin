@@ -10,10 +10,7 @@
 
  }
 
-
 ?>
-
-
 <div class="page-header">
   <h3 class="page-title">
     <span class="page-title-icon bg-gradient-primary text-white mr-2">
@@ -93,7 +90,6 @@
                         <?php 
                         $i=1;
                         foreach($filter_student as $row):
-                        
                         ?>
                         <tr>
                             <td><?php echo $i;$i++;?></td>
@@ -107,14 +103,57 @@
                     </tbody>
                 </table>
             </div> 
+           </div>
         </div> 
+        <?php else: ?>
+
+
+            <div class="col-md-12 grid-margin stretch-card">
+    <div class="card">
+        <h3 class="text-center pt-2">All Students</h3>
+        <div class="card-body"> 
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Student Name</th>
+                        <th>Class Name</th>
+                        <th>Mobile</th>
+                        <th>Email</th>
+                        <th>Gender</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php 
+                    $stm=$pdo->prepare("SELECT name,mobile,email,current_class,class_name,gender FROM students
+                    INNER JOIN class ON students.current_class=class.id
+                    ");
+                    $stm->execute();
+                    $result=$stm->fetchAll(PDO::FETCH_ASSOC);
+                    $i=1;
+                    foreach($result as $row):
+                    ?>
+                    <tr>
+                    <td><?php echo $i;$i++;?></td>
+                        <td><?php echo $row['name'];?></td>
+                        <td><?php echo $row['class_name'];?></td>
+                        <td><?php echo $row['mobile'];?></td>
+                        <td><?php echo $row['email'];?></td>
+                        <td><?php echo $row['gender'];?></td>
+                    </tr>
+                    <?php endforeach;?>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+
+
+ <?php endif; ?>
+
      </div> 
-     <?php else: ?>
-
-     <?php endif; ?>
-
-
- </div>
+    
+     
+ 
 
 
 
