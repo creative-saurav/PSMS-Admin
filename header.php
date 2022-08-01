@@ -235,6 +235,13 @@ if(!isset($_SESSION['admin_logedin'])){
                 </ul>
                 </div>
             </li>
+             
+            <li class="nav-item">
+                <a class="nav-link" href="attandance.php">
+                <span class="menu-title">Attandance</span>
+                <i class="mdi mdi-home menu-icon"></i>
+                </a>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-2" aria-expanded="false" aria-controls="ui-2">

@@ -186,6 +186,20 @@ if(!isset($_SESSION['teacher_logedin'])){
                 </div>
             </li>
             <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-9" aria-expanded="false" aria-controls="ui-9">
+                <span class="menu-title">Submit Exam Marks</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-9">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="new-marks.php">New Marks</a></li>
+                    <li class="nav-item"> <a class="nav-link" href="marks-history.php">Marks History</a></li> 
+                    
+                </ul>
+                </div>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                 <span class="menu-title">Students</span>
                 <i class="menu-arrow"></i>

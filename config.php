@@ -87,5 +87,13 @@
             $results = $stm->fetchAll(PDO::FETCH_ASSOC);
             return $results[0][$col];
         }
+        // Get teacher Info
+        // function getTeacherInfo($id,$col){
+        //     global $pdo;
+        //     $stm=$pdo->prepare("SELECT $col FROM teacher WHERE id=?");
+        //     $stm->execute(array($id));
+        //     $results = $stm->fetchAll(PDO::FETCH_ASSOC);
+        //     return $results[0][$col];
+        // }
 
 ?>
