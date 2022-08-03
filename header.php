@@ -257,6 +257,18 @@ if(!isset($_SESSION['admin_logedin'])){
                 </ul>
                 </div>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="collapse" href="#ui-9" aria-expanded="false" aria-controls="ui-9">
+                <span class="menu-title">Student Marks</span>
+                <i class="menu-arrow"></i>
+                <i class="mdi mdi-crosshairs-gps menu-icon"></i>
+                </a>
+                <div class="collapse" id="ui-9">
+                <ul class="nav flex-column sub-menu">
+                    <li class="nav-item"> <a class="nav-link" href="student-marks.php">Student marks</a></li>
+                </ul>
+                </div>
+            </li>
 
             <li class="nav-item">
                 <a class="nav-link" data-toggle="collapse" href="#ui-3" aria-expanded="false" aria-controls="ui-3">
