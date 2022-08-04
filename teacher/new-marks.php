@@ -13,10 +13,22 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
     $exam_id = $_POST["select_exam"];
 
     // Attendance Count
-     $stm =$pdo->prepare("SELECT * FROM exam_marks WHERE class_id=? AND subject_id=? AND teacher_id=? AND exam_id=?");
+    if( $exam_id == 1){
+     $stm =$pdo->prepare("SELECT * FROM exam_marks_1 WHERE class_id=? AND subject_id=? AND teacher_id=? AND exam_id=?");
      $stm->execute(array($class_id,$subject_id,$teacher_id,$exam_id));
      $exCount = $stm->rowCount();
-
+    }
+    else if( $exam_id == 2){
+     $stm =$pdo->prepare("SELECT * FROM exam_marks_2 WHERE class_id=? AND subject_id=? AND teacher_id=? AND exam_id=?");
+     $stm->execute(array($class_id,$subject_id,$teacher_id,$exam_id));
+     $exCount = $stm->rowCount();
+    }
+    else if( $exam_id == 3){
+     $stm =$pdo->prepare("SELECT * FROM exam_marks_3 WHERE class_id=? AND subject_id=? AND teacher_id=? AND exam_id=?");
+     $stm->execute(array($class_id,$subject_id,$teacher_id,$exam_id));
+     $exCount = $stm->rowCount();
+    }
+    
     //  $today = date('Y-m-d');
     
     //  by Default
@@ -34,7 +46,7 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
     // else if( $att_date != $today){
     //     $error = "Attandance Date is Wrong!";
     // }
-    else if($exCount == 1 ){
+    else if($exCount != 0 ){
         $error = "Allready Submit The Subject Marks!";
     }
     else{
@@ -50,32 +62,38 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
 
   if(isset($_POST['marks_submit'])){
     $student_id = $_POST['student_id'];
-    $student_name = $_POST['student_name'];
     $marks = $_POST['marks'];
 
-    // print_r($student_id);
-    // print_r($student_name);
-    // print_r($status);
-    $length = count($student_id) ;
-    $studentData=[];
-    for($i=0;$i<$length;$i++){
-        $studentData[$i]['id']=$student_id[$i];
-        $studentData[$i]['name']=$student_name[$i];
-        $studentData[$i]['marks']=$marks[$i];
-    }
-    // echo "<pre>";
-    // print_r($studentData);
-    // echo "</pre>";
-
-
-
-    $final_st_data = json_encode($studentData);
     $class_id = $_POST["class_id"];
     $subject_id = $_POST["subject_id"];
     $exam_id = $_POST["exam_id"];
+
+    $length = count($student_id) ;
+
+    if($exam_id == 1){
+        for($i=0;$i<$length;$i++){
+            $insert = $pdo->prepare("INSERT INTO exam_marks_1 (teacher_id,class_id,subject_id,exam_id,st_id,st_marks)VALUES (?,?,?,?,?,?)");
+            $insert ->execute(array($teacher_id,$class_id,$subject_id,$exam_id,$student_id[$i],$marks[$i]));
+    
+        }
+    }
+    else if($exam_id == 2){
+        for($i=0;$i<$length;$i++){
+            $insert = $pdo->prepare("INSERT INTO exam_marks_2 (teacher_id,class_id,subject_id,exam_id,st_id,st_marks)VALUES (?,?,?,?,?,?)");
+            $insert ->execute(array($teacher_id,$class_id,$subject_id,$exam_id,$student_id[$i],$marks[$i]));
+    
+        }
+    }
+    else if($exam_id == 3){
+        for($i=0;$i<$length;$i++){
+            $insert = $pdo->prepare("INSERT INTO exam_marks_3 (teacher_id,class_id,subject_id,exam_id,st_id,st_marks)VALUES (?,?,?,?,?,?)");
+            $insert ->execute(array($teacher_id,$class_id,$subject_id,$exam_id,$student_id[$i],$marks[$i]));
+    
+        }
+    }
+    
      
-    $insert = $pdo->prepare("INSERT INTO exam_marks (teacher_id,class_id,subject_id,exam_id,student_data)VALUES (?,?,?,?,?)");
-    $insert ->execute(array($teacher_id,$class_id,$subject_id,$exam_id,$final_st_data));
+   
     $success ="Marks Submit success!";
 
 
@@ -211,8 +229,6 @@ $teacher_id = $_SESSION['teacher_logedin'][0]["id"];
                             <td><?php echo $i;?></td>
                             <td><?php echo $newList['name'] ;?></td>
                             <input type="hidden" value="<?php echo $newList['id'] ;?>" name="student_id[]">
-                            <input type="hidden" value="<?php echo $newList['name'] ;?>" name="student_name[]">
-
                             <input type="hidden" value="<?php echo $_POST['select_class'] ;?>" name="class_id">
                             <input type="hidden" value="<?php echo $_POST['select_subject'] ;?>" name="subject_id">
                             <input type="hidden" value="<?php  echo $_POST['select_exam'] 

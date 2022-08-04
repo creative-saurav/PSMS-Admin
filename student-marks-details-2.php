@@ -44,10 +44,11 @@ foreach($getMarks as $marksByStudent){
 
                 <?php  
                 $bb=0;
+                $i =1;
                 $student_data = []; 
                 foreach($st_list as $newList) : ?>
                 <tr>
-                    <td>1</td>
+                    <td><?php echo $i;$i++; ?></td>
                     <td><?php echo $newList[0]['st_name']; ?></td>
 
                     <td>

@@ -40,13 +40,13 @@
             return $count;
         }
         // //  Student Data Count 
-        // function Student($col,$id){
-        //     global $pdo;
-        //     $stm=$pdo->prepare("SELECT $col FROM students WHERE id=?");
-        //     $stm->execute(array($id));
-        //     $results = $stm->fetchAll(PDO::FETCH_ASSOC);
-        //     return $results[0][$col];
-        // }
+        function Student($id,$col){
+            global $pdo;
+            $stm=$pdo->prepare("SELECT $col FROM students WHERE id=?");
+            $stm->execute(array($id));
+            $results = $stm->fetchAll(PDO::FETCH_ASSOC);
+            return $results[0][$col];
+        }
         
         // // Get Subject Name and Code
         function getSubjectName($id){
