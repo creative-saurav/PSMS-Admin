@@ -9,11 +9,6 @@ WHERE exam_marks_1.class_id=?");
 $stm->execute(array($class_id));
 $getMarks = $stm->fetchAll(PDO::FETCH_ASSOC);
 $getMarksCount = $stm->rowCount();
-
-echo "<pre>";
-print_r($getMarks);
-print_r($getMarksCount);
-echo "</pre>";
  
 $st_list = [];
 foreach($getMarks as $marksByStudent){
@@ -21,34 +16,34 @@ foreach($getMarks as $marksByStudent){
 }
  
 // For Exam 2
-// $stm2 = $pdo->prepare("SELECT exam_marks_2.class_id,exam_marks_2.subject_id,exam_marks_2.exam_id,exam_marks_2.st_marks,exam_marks_2.st_id,students.name as st_name,subjects.name as subject_name,subjects.code as subject_code FROM exam_marks_2 
-// INNER JOIN students ON exam_marks_2.st_id=students.id
-// INNER JOIN subjects ON exam_marks_2.subject_id=subjects.id
-// WHERE exam_marks_2.class_id=?");
+$stm2 = $pdo->prepare("SELECT exam_marks_2.class_id,exam_marks_2.subject_id,exam_marks_2.exam_id,exam_marks_2.st_marks,exam_marks_2.st_id,students.name as st_name,subjects.name as subject_name,subjects.code as subject_code FROM exam_marks_2 
+INNER JOIN students ON exam_marks_2.st_id=students.id
+INNER JOIN subjects ON exam_marks_2.subject_id=subjects.id
+WHERE exam_marks_2.class_id=?");
 
-// $stm2->execute(array($class_id));
-// $getMarks2 = $stm2->fetchAll(PDO::FETCH_ASSOC);
-// $getMarks2Count = $stm2->rowCount();
+$stm2->execute(array($class_id));
+$getMarks2 = $stm2->fetchAll(PDO::FETCH_ASSOC);
+$getMarks2Count = $stm2->rowCount();
  
-// $st_list2 = [];
-// foreach($getMarks2 as $marksByStudent2){
-//     $st_list2[$marksByStudent2['st_id']][] = $marksByStudent2;
-// }
+$st_list2 = [];
+foreach($getMarks2 as $marksByStudent2){
+    $st_list2[$marksByStudent2['st_id']][] = $marksByStudent2;
+}
  
 // For Exam 3
-// $stm3 = $pdo->prepare("SELECT exam_marks_3.class_id,exam_marks_3.subject_id,exam_marks_3.exam_id,exam_marks_3.st_marks,exam_marks_3.st_id,students.name as st_name,subjects.name as subject_name,subjects.code as subject_code FROM exam_marks_3 
-// INNER JOIN students ON exam_marks_3.st_id=students.id
-// INNER JOIN subjects ON exam_marks_3.subject_id=subjects.id
-// WHERE exam_marks_3.class_id=?");
+$stm3 = $pdo->prepare("SELECT exam_marks_3.class_id,exam_marks_3.subject_id,exam_marks_3.exam_id,exam_marks_3.st_marks,exam_marks_3.st_id,students.name as st_name,subjects.name as subject_name,subjects.code as subject_code FROM exam_marks_3 
+INNER JOIN students ON exam_marks_3.st_id=students.id
+INNER JOIN subjects ON exam_marks_3.subject_id=subjects.id
+WHERE exam_marks_3.class_id=?");
 
-// $stm3->execute(array($class_id));
-// $getMarks3 = $stm3->fetchAll(PDO::FETCH_ASSOC);
-// $getMarks3Count = $stm3->rowCount();
+$stm3->execute(array($class_id));
+$getMarks3 = $stm3->fetchAll(PDO::FETCH_ASSOC);
+$getMarks3Count = $stm3->rowCount();
  
-// $st_list3 = [];
-// foreach($getMarks3 as $marksByStudent3){
-//     $st_list3[$marksByStudent3['st_id']][] = $marksByStudent3;
-// }
+$st_list3 = [];
+foreach($getMarks3 as $marksByStudent3){
+    $st_list3[$marksByStudent3['st_id']][] = $marksByStudent3;
+}
  
  
 ?>
@@ -66,7 +61,7 @@ foreach($getMarks as $marksByStudent){
     <div class="card">
         <div class="card-body"> 
        
-            Class Name: <?php echo getClassName($_GET['class'],'class_name') ;?>
+            Class Name:  <?php echo getClassName($_GET['class'],'class_name') ;?>
             <br>
             <br>
       
@@ -81,10 +76,11 @@ foreach($getMarks as $marksByStudent){
                 </tr>
                 <?php  
                 $bb=0;
+                $i=1;
                 $student_data = []; 
                 foreach($st_list as $key => $newList) : ?>
                 <tr>
-                    <td>1</td>
+                    <td><?php echo $i;$i++;?></td>
                     <td><?php echo $newList[0]['st_name']; ?></td>
                     <td>
                         <?php 

@@ -1,6 +1,5 @@
 <?php require_once('header.php') ;
 
- 
  if(isset($_POST['submit_btn'])){
     $class_id = $_POST["select_class"];
 
@@ -18,10 +17,10 @@
         $allSubjectList = $allSubjectList[0]['subjects'];
         $allSubjectArray = json_decode( $allSubjectList);
         // get submit marks list
-        $stm = $pdo->prepare("SELECT exam_marks.id,exam_marks.class_id,exam_marks.teacher_id,exam_marks.subject_id,exam_marks.exam_id,teacher.name as teacher_name, subjects.name as subject_name ,subjects.code as subject_code FROM exam_marks 
-         INNER JOIN teacher ON exam_marks.teacher_id = teacher.id 
-         INNER JOIN subjects ON exam_marks.subject_id = subjects.id 
-         WHERE exam_marks.class_id = ?");
+        $stm = $pdo->prepare("SELECT exam_marks_3.id,exam_marks_3.class_id,exam_marks_3.teacher_id,exam_marks_3.subject_id,exam_marks_3.exam_id,teacher.name as teacher_name, subjects.name as subject_name ,subjects.code as subject_code FROM exam_marks_3 
+         INNER JOIN teacher ON exam_marks_3.teacher_id = teacher.id 
+         INNER JOIN subjects ON exam_marks_3.subject_id = subjects.id 
+         WHERE exam_marks_3.class_id = ?");
         $stm ->execute(array($class_id));
         $markstCount = $stm->rowCount();
         $marksList = $stm->fetchAll(PDO::FETCH_ASSOC);
@@ -47,8 +46,6 @@
         $studentData[$i]['name']=$student_name[$i];
         $studentData[$i]['status']=$status[$i];
     }
-
-
 
     $final_st_data = json_encode($studentData);
     $class_id = $_POST["class_id"];
@@ -169,7 +166,7 @@
                 <?php if(count($notSubmited)== 0) :?>
                     <br>
                     <br>
-                    <a href="student-marks-details-2.php?class=<?php echo $_POST['select_class'];?>" class="btn btn-info">Get Marks Calculation</a>
+                    <a href="student-marks-details.php?class=<?php echo $_POST['select_class'];?>" class="btn btn-info">Get Marks Calculation</a>
                  <?php endif;?>  
 
             </div> 
