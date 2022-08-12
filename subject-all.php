@@ -41,9 +41,8 @@
                          <td><?php echo $subject['code'] ;?></td>
                          <td><?php echo $subject['type'] ;?></td>
                          <td>
-                            <a href="teacher-edit.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
-                            <a href="teacher-details-veiw.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>&nbsp;
-                            <a onclick="return confirm('Are You Sure?')" href="teacher-delet.php?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-danger"><i class=" mdi mdi-delete  "></i></a>
+                            <a href="?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-warning"><i class="mdi mdi-credit-card-multiple "></i></a>&nbsp;
+                            <a href="?id=<?php echo $teacher['id'] ;?>" class="btn btn-sm btn-success"><i class="mdi mdi-eye "></i></a>&nbsp;
                         </td>
                        </tr> 
                        <?php endforeach ;?>

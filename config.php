@@ -123,5 +123,8 @@
                 return "Final Term Exam";
             }
         }
+        //Get Function file
+
+        require_once('function.php');
 
 ?>

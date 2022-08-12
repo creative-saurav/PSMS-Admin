@@ -1,6 +1,11 @@
 <?php require_once('header.php');
 $class_id = $_GET['class'];
 
+ //GET  Class Count
+ $submit_count = getCount('students_results','class_id',$class_id);
+ $st_count = getCount('students','current_class',$class_id);
+
+
 $stm = $pdo->prepare("SELECT exam_marks_1.class_id,exam_marks_1.subject_id,exam_marks_1.exam_id,exam_marks_1.st_marks,exam_marks_1.st_id,students.name as st_name,subjects.name as subject_name,subjects.code as subject_code FROM exam_marks_1 
 INNER JOIN students ON exam_marks_1.st_id=students.id
 INNER JOIN subjects ON exam_marks_1.subject_id=subjects.id
@@ -122,9 +127,9 @@ foreach($getMarks3 as $marksByStudent3){
                         <?php echo $st_subject3['subject_name']."-".$st_subject3['subject_code']." = ".$st_subject3['st_marks']."<br>";
 
                                 
-                        $student_data[$bb]['subjects']['subject_id_'.$ii] = $st_subject3['subject_id'];
-                        $student_data[$bb]['subjects']['subject_'.$ii] = $st_subject3['subject_name'];
-                        $student_data[$bb]['subjects']['subject_'.$ii.'_marks'] = $st_subject3['st_marks'];
+                        $student_data[$bb]['subjects'][$ii]['subject_id'] = $st_subject3['subject_id'];
+                        $student_data[$bb]['subjects'][$ii]['subject_name'] = $st_subject3['subject_name'];
+                        $student_data[$bb]['subjects'][$ii]['subject_marks'] = $st_subject3['st_marks'];
     
                         $total3=$total3+$st_subject3['st_marks'];
                         ?>  
@@ -147,11 +152,19 @@ foreach($getMarks3 as $marksByStudent3){
  
             </table>
  
+             <br>
 
-            <br>
-            <form action="" method="POST">
-                <input type="submit" class="btn btn-success" name="generate_btn" value="Generate Results">
-            </form> 
+             <?php 
+            //   $stm = $pdo->prepare("SELECT st_id FROM students_results ");
+            //   $stm->execute();
+            //   $result=$stm->rowCount();
+              
+             ?>
+               <?php  if($st_count != $submit_count): ?> 
+                <form action="" method="POST">
+                    <input type="submit" class="btn btn-success" name="generate_btn" value="Generate Results">
+                </form>
+              <?php  endif;?>  
             <?php  
             // Sort the Result Array
             function result_sort($a, $b) {
